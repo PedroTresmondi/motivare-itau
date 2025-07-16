@@ -1,0 +1,145 @@
+[
+  {
+    "horarioInicio": "2025-07-15T23:03:42.304Z",
+    "horarioFim": "2025-07-15T23:03:45.870Z",
+    "brinde": "Sem Brinde",
+    "rodadasConcluidas": 1,
+    "combinacoesCorretas": 0,
+    "temposPorRodada": [
+      2
+    ],
+    "nome": "jogo1"
+  },
+  {
+    "horarioInicio": "2025-07-16T14:19:46.946Z",
+    "horarioFim": "2025-07-16T14:19:49.777Z",
+    "brinde": "Sem Brinde",
+    "rodadasConcluidas": 1,
+    "combinacoesCorretas": 0,
+    "temposPorRodada": [
+      1
+    ],
+    "nome": "jogo2"
+  },
+  {
+    "horarioInicio": "2025-07-16T14:19:53.792Z",
+    "horarioFim": "2025-07-16T14:20:01.219Z",
+    "brinde": "Sem Brinde",
+    "rodadasConcluidas": 1,
+    "combinacoesCorretas": 0,
+    "temposPorRodada": [
+      6
+    ],
+    "nome": "jogo3"
+  },
+  {
+    "horarioInicio": "2025-07-16T14:20:17.873Z",
+    "horarioFim": "2025-07-16T14:20:21.572Z",
+    "brinde": "Sem Brinde",
+    "rodadasConcluidas": 1,
+    "combinacoesCorretas": 0,
+    "temposPorRodada": [
+      2
+    ],
+    "nome": "jogo4"
+  },
+  {
+    "horarioInicio": "2025-07-16T14:22:04.566Z",
+    "horarioFim": "2025-07-16T14:22:05.751Z",
+    "brinde": "Sem Brinde",
+    "rodadasConcluidas": 1,
+    "combinacoesCorretas": 0,
+    "temposPorRodada": [
+      0
+    ],
+    "nome": "jogo5"
+  },
+  {
+    "horarioInicio": "2025-07-16T14:22:07.502Z",
+    "horarioFim": "2025-07-16T14:22:11.551Z",
+    "brinde": "Sem Brinde",
+    "rodadasConcluidas": 1,
+    "combinacoesCorretas": 0,
+    "temposPorRodada": [
+      3
+    ],
+    "nome": "jogo6"
+  },
+  {
+    "horarioInicio": "2025-07-16T14:22:54.979Z",
+    "horarioFim": "2025-07-16T14:22:56.350Z",
+    "brinde": "Sem Brinde",
+    "rodadasConcluidas": 1,
+    "combinacoesCorretas": 0,
+    "temposPorRodada": [
+      0
+    ],
+    "nome": "jogo7"
+  },
+  {
+    "horarioInicio": "2025-07-16T14:25:31.015Z",
+    "horarioFim": "2025-07-16T14:25:32.772Z",
+    "brinde": "Sem Brinde",
+    "rodadasConcluidas": 1,
+    "combinacoesCorretas": 0,
+    "temposPorRodada": [
+      0
+    ],
+    "nome": "jogo8"
+  },
+  {
+    "horarioInicio": "2025-07-16T14:29:46.967Z",
+    "horarioFim": "2025-07-16T14:30:03.997Z",
+    "brinde": "Sem Brinde",
+    "rodadasConcluidas": 1,
+    "combinacoesCorretas": 0,
+    "temposPorRodada": [
+      120
+    ],
+    "nome": "jogo9"
+  },
+  {
+    "horarioInicio": "2025-07-16T14:39:21.444Z",
+    "horarioFim": "2025-07-16T14:39:36.435Z",
+    "brinde": "Sem Brinde",
+    "rodadasConcluidas": 1,
+    "combinacoesCorretas": 0,
+    "temposPorRodada": [
+      11
+    ],
+    "nome": "jogo10"
+  },
+  {
+    "horarioInicio": "2025-07-16T14:39:38.079Z",
+    "horarioFim": "2025-07-16T14:39:39.488Z",
+    "brinde": "Sem Brinde",
+    "rodadasConcluidas": 1,
+    "combinacoesCorretas": 0,
+    "temposPorRodada": [
+      0
+    ],
+    "nome": "jogo11"
+  },
+  {
+    "horarioInicio": "2025-07-16T14:42:36.088Z",
+    "horarioFim": "2025-07-16T14:48:42.134Z",
+    "brinde": "Sem Brinde",
+    "rodadasConcluidas": 1,
+    "combinacoesCorretas": 0,
+    "temposPorRodada": [
+      120
+    ],
+    "nome": "jogo12"
+  },
+  {
+    "horarioInicio": "2025-07-16T14:55:39.035Z",
+    "horarioFim": "2025-07-16T14:55:49.229Z",
+    "brinde": "Fita salva celular",
+    "rodadasConcluidas": 1,
+    "combinacoesCorretas": 1,
+    "temposPorRodada": [
+      5
+    ],
+    "nome": "jogo13"
+  }
+]

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Início</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('./assets/bg_common.png') no-repeat center center fixed;
+      background-size: cover;
+      font-family: sans-serif;
+      color: white;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      z-index: 9999;
+      opacity: 1;
+      animation: fadeOut 1s ease forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal-start {
+      background: url(./assets/bg_modal_start.png) no-repeat center center;
+      background-size: cover;
+      padding: 80px 30px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 825px;
+      height: 1340px;
+      text-align: center;
+    }
+
+    .modal-start h2 {
+      font-size: 70px;
+      margin-bottom: 0px;
+      font-weight: normal;
+      line-height: 1.2;
+      top: 0px;
+      position: absolute;
+    }
+
+    .logo-itau {
+      margin: 10px 0 20px 0;
+    }
+
+    .logo-itau img {
+      width: 50px;
+      height: auto;
+    }
+
+    .btn-iniciar {
+      background: #fd6201;
+      color: white;
+      border: none;
+      padding: 27px 90px;
+      border-radius: 16px;
+      font-size: 60px;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-bottom: 40px;
+    }
+
+    .texto {
+      display: flex;
+      flex-direction: column;
+      width: 85%;
+      height: 90%;
+      padding: 30px;
+    }
+
+    .teste-agora {
+      color: #c3ebf7;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="overlay"></div>
+
+  <div class="modal-start fade-in" style="animation-delay: 0.5s;">
+    <div class="texto fade-in" style="animation-delay: 1s;">
+      <h2>Sua memória pode<br>render prêmios.<br><span class="teste-agora">Teste agora!</span></h2>
+    </div>
+    <button class="btn-iniciar fade-in" style="animation-delay: 1.5s;" onclick="iniciarJogo()">
+      Iniciar
+    </button>
+  </div>
+  <audio id="som-contagem-inicial" src="./assets/sounds/Simulate_Countdown2.wav"></audio>
+
+</body>
+<script type="text/JavaScript">
+
+    function iniciarJogo() {
+      // Tentativa de play para liberar o autoplay em game.html
+      const audio = document.getElementById('som-contagem-inicial');
+      audio.volume = 0;
+      audio.play().catch(() => {}).finally(() => {
+        window.location.href = 'game.html';
+      });
+    }
+
+function disableselect(e) {
+  return false
+}
+
+function reEnable() {
+  return true
+}
+
+document.onselectstart = new Function ("return false")
+
+if (window.sidebar) {
+  document.onmousedown = disableselect
+  document.onclick = reEnable
+}
+</script>
+
+</html>

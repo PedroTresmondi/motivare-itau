@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Cadastro do Jogador</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('./assets/bg_cadastro.png') no-repeat center center fixed;
+      background-size: cover;
+      font-family: sans-serif;
+      color: white;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #toast {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 16px;
+      position: fixed;
+      z-index: 10;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 30px;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    #toast.show {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .modal-cpf-container {
+      background: url(./assets/bg_modal.png) no-repeat center center;
+      background-size: cover;
+      padding: 80px 30px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 655px;
+      height: 1075px;
+    }
+
+    .modal-cpf-container h3 {
+      font-size: 50px;
+      margin-bottom: 120px;
+      margin-top: 120px;
+      text-align: center;
+      font-weight: lighter;
+    }
+
+    .modal-cpf-container input {
+      width: 70%;
+      padding: 14px;
+      font-size: 45px;
+      text-align: center;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 25px;
+      background: white;
+      color: black;
+    }
+
+    .teclado {
+      display: flex;
+      /* grid-template-columns: repeat(6, 1fr); */
+      gap: 7px;
+      background-color: #d3d4d9;
+      padding: 20px;
+      width: 90%;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      margin-top: 30px;
+      /* flex-direction: row; */
+      color: black;
+    }
+
+    .teclado button {
+      padding: 14px;
+      font-size: 20px;
+      background: #e1e1e1;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .remover {
+      background: #e54b4b;
+      color: black;
+    }
+
+    .btn-continuar {
+      background: #ff6200;
+      color: white;
+      border: none;
+      padding: 14px 30px;
+      border-radius: 8px;
+      margin-top: 50px;
+      font-size: 38px;
+      font-weight: bold;
+      cursor: pointer;
+      font-weight: 500;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="toast"></div>
+
+  <!-- Modal de Digitação -->
+  <div class="modal" id="modal-confirmacao" style="display: flex;">
+    <div class="modal-cpf-container">
+      <h3>Insira seu CPF:</h3>
+      <input id="cpf-confirmado" readonly />
+      <div class="teclado">
+        <button onclick="inserirNumero(1)">1</button>
+        <button onclick="inserirNumero(2)">2</button>
+        <button onclick="inserirNumero(3)">3</button>
+        <button onclick="inserirNumero(4)">4</button>
+        <button onclick="inserirNumero(5)">5</button>
+        <button onclick="inserirNumero(6)">6</button>
+        <button onclick="inserirNumero(7)">7</button>
+        <button onclick="inserirNumero(8)">8</button>
+        <button onclick="inserirNumero(9)">9</button>
+        <button onclick="inserirNumero(0)">0</button>
+        <button onclick="removerUltimo()" class="remover">x</button>
+      </div>
+      <button class="btn-continuar" onclick="enviarCPF()">Continuar</button>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmação Final -->
+  <div class="modal" id="modal-final">
+    <div class="modal-cpf-container">
+      <h3>Você confirma o CPF abaixo?</h3>
+      <input id="cpf-final" readonly />
+      <button class="btn-continuar" onclick="confirmarCadastro()">Sim, confirmar</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/+esm";
+
+    const supabase = createClient(
+      'https://kngmfadsyfujxzmjunzn.supabase.co',
+      'SUPABASE_KEY_PLACEHOLDER'
+    );
+
+
+    let cpfDigitado = "";
+
+    window.inserirNumero = (num) => {
+      if (cpfDigitado.length < 11) {
+        cpfDigitado += num;
+        atualizarCampo();
+      }
+    };
+
+    window.removerUltimo = () => {
+      cpfDigitado = cpfDigitado.slice(0, -1);
+      atualizarCampo();
+    };
+
+    function atualizarCamet      entById("cpf-confirmado").value = cpfDigitado;
+    }
+
+    function mostrarToast(mensagem) {
+      const toast = document.getElementById("toast");
+      toast.textContent = mensagem;
+      toast.className = "show";
+      setTimeout(() => toast.className = toast.className.replace("show", ""), 3000);
+    }
+
+    function validarCPFFormato(cpf) {
+      return /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf);
+    }
+
+    window.enviarCPF = () =             if (cpfDigitado.length !== 11) {
+      mostrarToast("CPF i      pleto.      
+        return;
+    }
+
+    const cpfFormatado = cpfDigitado.replace(/(\d{3})(\d{3})(\d{3})(               $2.$3 - $4");
+
+    if (!validarCPFFormato(cpfFormatado)) {
+      mostrarToast("Formato inválido.");
+      return;
+    }
+
+    document.getElementB             f - final").value = cpfFormatado;
+    document.getElementById("modal-final").s.       = "flex";
+    };
+
+    window.con        Cadastro = async () => {
+      const cpfFinal = ment.l        tById        f-final").value;
+
+      const { data, error } = await supabase
+        .from("cadastro_jogadores")
+        .select("cpf")
+        .eq("cpf", cpfFinal);
+
+      if (error) {
+        mostrarToast("Erro ao verificar CPF.");
+        return;
+      }
+
+      if (data.length > 0) {
+        mostrarToast("Este CPF já participou do jogo.");
+        return;
+      }
+
+      const { error: insertError } = await supabase
+        .from("cadastro_jogadores")
+        .insert([{ cpf: cpfFinal }]);
+
+      if (insertError) {
+        mostrarToast("Erro ao cadastrar CPF.");
+      } else {
+        mostrarToast("CPF cadastrado com sucesso!");
+        cpfDigitado = "";
+        atualizarCampo();
+        document.getElementById("modal-final").style.display = "none";
+      }
+    };
+  </script>
+
+</body>
+
+
+</html>
