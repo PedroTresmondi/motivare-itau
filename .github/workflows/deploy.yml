@@ -1,28 +1,27 @@
-name: Deploy index.html with Supabase key injection
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]  # ou outro branch que você usa
+    branches:
+      - main  # ou master, se for o seu caso
+
+permissions:
+  contents: write  # necessário para permitir push via GitHub Actions
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do repositório
+      - name: Checkout do código
         uses: actions/checkout@v3
 
-      - name: Criar pasta de deploy com index.html
-        run: |
-          mkdir deploy
-          cp public/index.html deploy/index.html
+      - name: Build (caso necessário)
+        run: echo "Nenhuma build necessária para HTML estático"
 
-      - name: Injetar Supabase Key no index.html
-        run: |
-          sed -i "s/SUPABASE_KEY_PLACEHOLDER/${{ secrets.SUPABASE_KEY }}/g" deploy/index.html
-
-      - name: Deploy para GitHub Pages
+      - name: Deploy para o GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./deploy
+          github_token: ${{ secrets.GH_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./public
