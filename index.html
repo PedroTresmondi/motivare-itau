@@ -178,7 +178,6 @@
       'SUPABASE_KEY_PLACEHOLDER'
     );
 
-
     let cpfDigitado = "";
 
     window.inserirNumero = (num) => {
@@ -193,7 +192,8 @@
       atualizarCampo();
     };
 
-    function atualizarCamet      entById("cpf-confirmado").value = cpfDigitado;
+    function atualizarCampo() {
+      document.getElementById("cpf-confirmado").value = cpfDigitado;
     }
 
     function mostrarToast(mensagem) {
@@ -207,24 +207,25 @@
       return /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf);
     }
 
-    window.enviarCPF = () =             if (cpfDigitado.length !== 11) {
-      mostrarToast("CPF i      pleto.      
+    window.enviarCPF = () => {
+      if (cpfDigitado.length !== 11) {
+        mostrarToast("CPF incompleto.");
         return;
-    }
+      }
 
-    const cpfFormatado = cpfDigitado.replace(/(\d{3})(\d{3})(\d{3})(               $2.$3 - $4");
+      const cpfFormatado = cpfDigitado.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
 
-    if (!validarCPFFormato(cpfFormatado)) {
-      mostrarToast("Formato inválido.");
-      return;
-    }
+      if (!validarCPFFormato(cpfFormatado)) {
+        mostrarToast("Formato inválido.");
+        return;
+      }
 
-    document.getElementB             f - final").value = cpfFormatado;
-    document.getElementById("modal-final").s.       = "flex";
+      document.getElementById("cpf-final").value = cpfFormatado;
+      document.getElementById("modal-final").style.display = "flex";
     };
 
-    window.con        Cadastro = async () => {
-      const cpfFinal = ment.l        tById        f-final").value;
+    window.confirmarCadastro = async () => {
+      const cpfFinal = document.getElementById("cpf-final").value;
 
       const { data, error } = await supabase
         .from("cadastro_jogadores")
