@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Configuração do Jogo da Memória</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 100vw;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: #223264;
+    }
+
+    section {
+      background: #f5f5f5;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input,
+    select,
+    button {
+      padding: 8px;
+      margin-top: 4px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      background: #223264;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background: #445486;
+    }
+
+    .botoes-dificuldade button {
+      width: 48%;
+      margin-bottom: 10px;
+      border: 2px solid transparent;
+    }
+
+    .botoes-dificuldade button.ativo {
+      border: 2px solid orange;
+      background-color: #ffcc80;
+      color: #000;
+    }
+
+    .personalizado {
+      margin-top: 15px;
+    }
+
+    #lista-estoque>div {
+      background: #e0e0e0;
+      padding: 5px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+    }
+
+    #resumo {
+      background: #e8f4fc;
+      padding: 10px;
+      font-size: 14px;
+      margin-top: 10px;
+      border-left: 4px solid #2196f3;
+    }
+
+    .botoes-final {
+      display: flex;
+      gap: 10px;
+    }
+
+    .grid-imagens {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    .grid-imagens img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border 0.2s;
+    }
+
+    .grid-imagens img:hover {
+      border: 2px solid #007bff;
+    }
+
+    .btn-editar-remover {
+      display: flex;
+      gap: 5px;
+      margin-top: 5px;
+    }
+
+    .container-page {
+      display: flex;
+      gap: 20px;
+      max-width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .coluna-config {
+      width: 80%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .coluna-registros {
+      width: 20%;
+      background: #f5f5f5;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+      font-family: monospace;
+      overflow-y: auto;
+      /* 👈 rolagem vertical */
+      max-height: 90vh;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-page">
+    <div class="coluna-config">
+
+      <h1>🎮 Configuração do Jogo da Memória</h1>
+
+      <section id="dificuldade">
+        <h2>1. Selecione a Dificuldade</h2>
+        <div class="botoes-dificuldade">
+          <button onclick="setDificuldade('facil')" id="btn-facil">Fácil</button>
+          <button onclick="setDificuldade('medio')" id="btn-medio">Médio</button>
+          <button onclick="setDificuldade('dificil')" id="btn-dificil">Difícil</button>
+          <button onclick="mostrarPersonalizado()" id="btn-perso">🔧 Personalizado</button>
+        </div>
+
+        <div id="personalizado" class="personalizado" style="display:none;">
+          <label>Tempo (segundos): <input type="number" id="tempo"></label>
+          <label>Tempo de Memorização (segundos): <input type="number" id="tempo-mem"></label>
+        </div>
+        </section>
+
+      <section id="estoque">
+        <h2>2. Estoque de Brindes</h2>
+        <h3>➕ Adicionar Novo Brinde</h3>
+        <label>Nome: <input type="text" id="nome-brinde"></label>
+        <label>Quantidade: <input type="number" id="quantidade-brinde" min="1"></label>
+        <div id="seletor-imagem-container">
+          <button onclick="abrirSeletorImagem()">Selecionar Imagem</button>
+          <span id="imagem-selecionada-texto">Nenhuma imagem selecionada</span>
+          <input type="hidden" id="imagem-brinde">
+        </div>
+
+        <div id="lista-imagens" style="display:none; margin-top:10px; gap:10px; flex-wrap: wrap;" class="grid-imagens">
+        </div>
+        <button onclick="adicionarBrinde()">Adicionar</button>
+
+        <div id="lista-estoque"></div>
+        </section>
+
+      <section id="brindes-por-score">
+        <h2>🎁 3. Brindes por Score</h2>
+
+        <div id="faixas-container" style="margin-bottom: 20px;">
+          <!-- Faixas existentes aparecerão aqui -->
+        </div>
+
+        <fieldset style="border: 1px solid #ccc; padding: 15px; border-radius: 8px;">
+          <legend style="font-weight: bold;">➕ Adicionar Nova Faixa de Score</legend>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center;">
+            <label style="flex: 1; min-width: 120px;">
+              Score Mínimo:
+              <input type="number" id="score-min" placeholder="Ex: 5" style="width: 100%;">
+            </label>
+
+            <label style="flex: 1; min-width: 120px;">
+              Score Máximo:
+              <input type="number" id="score-max" placeholder="Ex: 10" style="width: 100%;">
+            </label>
+
+            <label style="flex: 1; min-width: 150px;">
+              Brinde:
+              <select id="brinde-faixa" style="width: 100%;"></select>
+            </label>
+            <button onclick="adicionarFaixa()" style="padding: 10px 20px; font-weight: bold;">
+              ➕ Adicionar Faixa
+            </button>
+            </div>
+            </fieldset>
+            </section>
+
+      <section id="resumo">
+        <strong>Resumo:</strong>
+        <div id="resumo-config">Nenhuma configuração definida ainda.</div>
+      </section>
+
+      <div class="botoes-final">
+        <button onclick="salvarConfiguracao()">💾 Salvar Configuração</button>
+        <button onclick="resetarConfiguracao()">🔁 Resetar Tudo</button>
+        <button onclick="irParaJogo()">Ir para o jogo</button>
+      </div>
+    </div>
+    <div class="coluna-registros">
+      <h2>📋 Registros dos Jogadores (<span id="contador-registros">0</span>)</h2>
+      <div id="lista-registros"></div>
+
+      <em>Carregando registros...</em>
+      </div>
+      </div>
+  <script src="configuracao.js"></script>
+</body>
+
+</html>
