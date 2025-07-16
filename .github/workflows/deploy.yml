@@ -1,27 +1,26 @@
-name: Deploy to GitHub Pages
+name: Deploy index.html
 
 on:
   push:
-    branches:
-      - main  # ou master, se for o seu caso
+    branches: [main]
 
 permissions:
-  contents: write  # necessário para permitir push via GitHub Actions
+  contents: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout do código
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Build (caso necessário)
-        run: echo "Nenhuma build necessária para HTML estático"
+      - name: Copiar apenas index.html
+        run: |
+          mkdir site
+          cp public/index.html site/index.html
+          cp -r public/assets site/assets  # (se tiver imagens)
 
-      - name: Deploy para o GitHub Pages
+      - name: Deploy para GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GH_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: ./public
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
